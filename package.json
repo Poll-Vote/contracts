@@ -1,5 +1,5 @@
 {
-  "name": "unc-contracts",
+  "name": "contracts",
   "version": "1.0.0",
   "description": "",
   "main": "hardhat.config.js",
@@ -12,8 +12,10 @@
     "deploy-goerli": "hardhat run scripts/deploy.js --network goerli",
     "build-mainnet": "npm run clean && hardhat compile --network mainnet",
     "deploy-mainnet": "hardhat run scripts/deploy.js --network mainnet",
-    "upgrade-contracts": "hardhat run scripts/upgrade-contracts.js --network mainnet",
-    "verify-contract": "hardhat run scripts/verify-contract.js --network mainnet",
+    "upgrade-goerli": "hardhat run scripts/upgrade-contracts.js --network goerli",
+    "verify-goerli": "hardhat run scripts/verify-contract.js --network goerli",
+    "upgrade-mainnet": "hardhat run scripts/upgrade-contracts.js --network mainnet",
+    "verify-mainnet": "hardhat run scripts/verify-contract.js --network mainnet",
     "lint": "prettier-standard --format",
     "clean": "rimraf cache artifacts"
   },

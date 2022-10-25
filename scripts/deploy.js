@@ -32,6 +32,7 @@ async function main() {
   console.log('SpaceFactory Implementation address: ', spaceFactoryImplementation)
 
   await sleep(60);
+  
   // Verify SpaceFactory
   try {
     await hre.run('verify:verify', {
