@@ -24,9 +24,11 @@ contract SpaceFactory is OwnableUpgradeable {
         uint256 spaceId;
         string logo;
         string name;
+        string about;
         string category;
         address powerToken;
         address creator;
+        uint256 createLimit; // holder who has over createLimit powerToken can create proposal
         string socialMetadata;        
     }
 
@@ -39,9 +41,11 @@ contract SpaceFactory is OwnableUpgradeable {
         uint256 spaceId,
         string logo,
         string name,
+        string about,
         string category,
         address powerToken,
         address creator,
+        uint256 createLimit,
         string socialMetadata
     );
     
@@ -69,9 +73,11 @@ contract SpaceFactory is OwnableUpgradeable {
 
     function createSpace(
         string memory _logo, 
-        string memory _name, 
+        string memory _name,
+        string memory _about, 
         string memory _category, 
         address _powerToken, 
+        uint256 _createLimit,
         string memory _socialMetadata
         ) external payable 
     {   
@@ -95,11 +101,13 @@ contract SpaceFactory is OwnableUpgradeable {
 		spaces[currentSpaceId].spaceId = currentSpaceId;
 		spaces[currentSpaceId].logo = _logo;
 		spaces[currentSpaceId].name = _name;
+        spaces[currentSpaceId].about = _about;
         spaces[currentSpaceId].category = _category;
         spaces[currentSpaceId].powerToken = _powerToken;
         spaces[currentSpaceId].creator = msg.sender;
+        spaces[currentSpaceId].createLimit = _createLimit;
 		spaces[currentSpaceId].socialMetadata = _socialMetadata;
-        emit SpaceCreated(currentSpaceId, _logo, _name, _category, _powerToken, msg.sender, _socialMetadata);
+        emit SpaceCreated(currentSpaceId, _logo, _name, _about, _category, _powerToken, msg.sender, _createLimit, _socialMetadata);
     }    
     
     function canGetSymbol(address _address) view private returns(bool) {
