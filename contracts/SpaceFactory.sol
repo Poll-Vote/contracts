@@ -81,7 +81,7 @@ contract SpaceFactory is OwnableUpgradeable {
         string memory _socialMetadata
         ) external payable 
     {   
-        require((canGetSymbol(_powerToken) && canGetDecimals(_powerToken)), '_powerToken have to be ERC20 token contract');
+        require((paymentTokenAddress == address(0x0)) || (canGetSymbol(_powerToken) && canGetDecimals(_powerToken)), '_powerToken have to be ERC20 token contract');
         
         if (paymentTokenAddress == address(0x0)) {
             if (createFee > 0) {
