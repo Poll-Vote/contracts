@@ -49,6 +49,18 @@ contract SpaceFactory is OwnableUpgradeable {
         string socialMetadata
     );
     
+    event SpaceUpdated(
+        uint256 spaceId,
+        string logo,
+        string name,
+        string about,
+        string category,
+        address powerToken,
+        address creator,
+        uint256 createLimit,
+        string socialMetadata
+    );
+    
 
 
     function initialize(
@@ -81,7 +93,7 @@ contract SpaceFactory is OwnableUpgradeable {
         string memory _socialMetadata
         ) external payable 
     {   
-        require((paymentTokenAddress == address(0x0)) || (canGetSymbol(_powerToken) && canGetDecimals(_powerToken)), '_powerToken have to be ERC20 token contract');
+        require((_powerToken == address(0x0)) || (canGetSymbol(_powerToken) && canGetDecimals(_powerToken)), '_powerToken have to be ERC20 token contract');
         
         if (paymentTokenAddress == address(0x0)) {
             if (createFee > 0) {
@@ -108,7 +120,32 @@ contract SpaceFactory is OwnableUpgradeable {
         spaces[currentSpaceId].createLimit = _createLimit;
 		spaces[currentSpaceId].socialMetadata = _socialMetadata;
         emit SpaceCreated(currentSpaceId, _logo, _name, _about, _category, _powerToken, msg.sender, _createLimit, _socialMetadata);
-    }    
+    }
+
+    function updateSpace(
+        uint256 _spaceId,
+        string memory _logo, 
+        string memory _name,
+        string memory _about, 
+        string memory _category, 
+        address _powerToken, 
+        uint256 _createLimit,
+        string memory _socialMetadata
+        ) external 
+    {   
+        require((_powerToken == address(0x0)) || (canGetSymbol(_powerToken) && canGetDecimals(_powerToken)), '_powerToken have to be ERC20 token contract');
+        require(_spaceId <= currentSpaceId, 'invalid _spaceId');
+        require(msg.sender == spaces[_spaceId].creator, "Error, you are not the creator"); 
+
+		spaces[_spaceId].logo = _logo;
+		spaces[_spaceId].name = _name;
+        spaces[_spaceId].about = _about;
+        spaces[_spaceId].category = _category;
+        spaces[_spaceId].powerToken = _powerToken;
+        spaces[_spaceId].createLimit = _createLimit;
+		spaces[_spaceId].socialMetadata = _socialMetadata;
+        emit SpaceCreated(_spaceId, _logo, _name, _about, _category, _powerToken, msg.sender, _createLimit, _socialMetadata);
+    }
     
     function canGetSymbol(address _address) view private returns(bool) {
         IERC20 token = IERC20(_address); 
