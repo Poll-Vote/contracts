@@ -15,7 +15,7 @@ async function main() {
   /**
    * Upgrade SpaceFactory
    */
-   const SpaceFactoryAddress = "0x9fd95b0dc0a42d8adf5855fed985a5b290ba2e53";
+   const SpaceFactoryAddress = "0x531ab74f061e4c1953a05d9a982499d16855fa12";
 
    const SpaceFactoryV2 = await ethers.getContractFactory('SpaceFactory', {
      signer: (await ethers.getSigners())[0]
