@@ -135,7 +135,7 @@ contract SpaceFactory is OwnableUpgradeable {
     {   
         require((_powerToken == address(0x0)) || (canGetSymbol(_powerToken) && canGetDecimals(_powerToken)), '_powerToken have to be ERC20 token contract');
         require(_spaceId <= currentSpaceId, 'invalid _spaceId');
-        require(msg.sender == spaces[_spaceId].creator, "Error, you are not the creator"); 
+        require(msg.sender == spaces[_spaceId].creator || msg.sender == owner(), "Error, you are not the creator"); 
 
 		spaces[_spaceId].logo = _logo;
 		spaces[_spaceId].name = _name;
