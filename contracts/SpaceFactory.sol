@@ -144,7 +144,7 @@ contract SpaceFactory is OwnableUpgradeable {
         spaces[_spaceId].powerToken = _powerToken;
         spaces[_spaceId].createLimit = _createLimit;
 		spaces[_spaceId].socialMetadata = _socialMetadata;
-        emit SpaceCreated(_spaceId, _logo, _name, _about, _category, _powerToken, msg.sender, _createLimit, _socialMetadata);
+        emit SpaceUpdated(_spaceId, _logo, _name, _about, _category, _powerToken, msg.sender, _createLimit, _socialMetadata);
     }
     
     function canGetSymbol(address _address) view private returns(bool) {
